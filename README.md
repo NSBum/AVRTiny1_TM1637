@@ -30,7 +30,7 @@ int main(void)
     TM1637_init(1, 5, 4);										// initialize display interface
     TM1637_clear();                                             // clear screen
 	
-	TM1637_display_number_decimal(7599, false, 1); 				// display 75.99
+	TM1637_display_number_decimal(7599, false, 1);              // display 75.99
 
 	/* Run through some usage examples */
     while (1) {
