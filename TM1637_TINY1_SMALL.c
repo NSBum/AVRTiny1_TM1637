@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2017-2018, Łukasz Marcin Podkalicki <lpodkalicki@gmail.com>
  * Copyright (c) 2022, Changed to CodevisonAVR version BY Pouria Amiri 
  * This is CODEVISIONAVR library for 4-Digit LED Display based on TM1637 chip.
@@ -23,37 +23,38 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
-#include "TM1637_TINY1.h"
+#include "TM1637_TINY1_SMALL.h"
 
-/* PIN manipulation inline functions
- */
+static uint8_t display_size;
+
+/* PIN manipulation inline functions */
 
 static inline uint8_t TM1637_DIO_READ(void) {
-    return (PORTA.IN & TM1637_DIO_MASK) ? 1 : 0;
+	return (TM1637_DIO_PORT.IN & TM1637_DIO_MASK) ? 1 : 0;
 }
 
 static inline void TM1637_DIO_HIGH() {
-	PORTA.OUT |= TM1637_DIO_MASK;
+	TM1637_DIO_PORT.OUTSET = TM1637_DIO_MASK;
 }
 
 static inline void TM1637_DIO_LOW() {
-	PORTA.OUT &= ~TM1637_DIO_MASK;
+	TM1637_DIO_PORT.OUTCLR = TM1637_DIO_MASK;
 }
 
 static inline void TM1637_DIO_OUTPUT() {
-	PORTA.DIR |= TM1637_DIO_MASK;
+	TM1637_DIO_PORT.DIRSET = TM1637_DIO_MASK;
 }
 
 static inline void TM1637_DIO_INPUT() {
-	PORTA.DIR &= ~TM1637_DIO_MASK;
+	TM1637_DIO_PORT.DIRCLR = TM1637_DIO_MASK;
 }
 
 static inline void TM1637_CLK_HIGH() {
-	PORTA.OUT |= TM1637_CLK_MASK;
+	TM1637_CLK_PORT.OUTSET = TM1637_CLK_MASK;
 }
 
 static inline void TM1637_CLK_LOW() {
-	PORTA.OUT &= ~TM1637_CLK_MASK;
+	TM1637_CLK_PORT.OUTCLR = TM1637_CLK_MASK;
 }
 
 static void TM1637_send_config(const uint8_t enable, const uint8_t brightness);
@@ -61,8 +62,6 @@ static void TM1637_send_command(const uint8_t value);
 static void TM1637_start(void);
 static void TM1637_stop(void);
 static uint8_t TM1637_write_byte(uint8_t value);
-
-static uint8_t display_size;
 
 static uint8_t _config = TM1637_SET_DISPLAY_ON | TM1637_BRIGHTNESS_MAX;
 static uint8_t _segments = 0xff;
@@ -81,38 +80,27 @@ const uint8_t _digit2segments[] PROGMEM = {
 
 static const uint8_t minus_segments = 0b01000000;
 
-pin_config_t create_pin_config(VPORT_t *vport, uint8_t pin) {
-	pin_config_t config;
-	config.vport = vport;
-	config.pin = pin;
-	return config;
-}
-
 uint8_t _digit_to_segments(uint8_t digit) {
 	return (digit < 10 ? pgm_read_byte_near((uint8_t *)&_digit2segments + digit) : 0x00);
 }
 
 void TM1637_init(const uint8_t enable, const uint8_t brightness, uint8_t size) {
-	PORTA.DIR |= TM1637_CLK_MASK;							// set CLK direction
-	PORTA.DIR |= TM1637_DIO_MASK;							// set DIO direction
-	PORTA.OUT &= ~(TM1637_CLK_MASK | TM1637_DIO_MASK);		// drive both low
+	TM1637_CLK_PORT.DIRSET = TM1637_CLK_MASK | TM1637_DIO_MASK;    // set CLK and DIO directions
+	TM1637_DIO_PORT.OUTCLR = ~TM1637_DIO_MASK | TM1637_CLK_MASK;   // CLK and DIO line low
 	TM1637_send_config(enable, brightness);
 	display_size = size;
 }
 
 void TM1637_enable(const uint8_t value) {
-
 	TM1637_send_config(value, _config & TM1637_BRIGHTNESS_MAX);
 }
 
 void TM1637_set_brightness(const uint8_t value) {
-
 	TM1637_send_config(_config & TM1637_SET_DISPLAY_ON,
 		value & TM1637_BRIGHTNESS_MAX);
 }
 
 void TM1637_display_segments(const uint8_t position, const uint8_t segments) {
-
 	TM1637_send_command(TM1637_CMD_SET_DATA | TM1637_SET_DATA_F_ADDR);
 	TM1637_start();
 	TM1637_write_byte(TM1637_CMD_SET_ADDR | (position & (TM1637_POSITION_MAX - 1)));
@@ -150,7 +138,6 @@ void TM1637_clear(void) {
 }
 
 void TM1637_send_config(const uint8_t enable, const uint8_t brightness) {
-
 	_config = (enable ? TM1637_SET_DISPLAY_ON : TM1637_SET_DISPLAY_OFF) |
 		(brightness > TM1637_BRIGHTNESS_MAX ? TM1637_BRIGHTNESS_MAX : brightness);
 
@@ -158,14 +145,12 @@ void TM1637_send_config(const uint8_t enable, const uint8_t brightness) {
 }
 
 void TM1637_send_command(const uint8_t value) {
-
 	TM1637_start();
 	TM1637_write_byte(value);
 	TM1637_stop();
 }
 
 void TM1637_start(void) {
-
 	TM1637_DIO_HIGH();
 	TM1637_CLK_HIGH();
 	_delay_us(TM1637_DELAY_US);
@@ -173,7 +158,6 @@ void TM1637_start(void) {
 }
 
 void TM1637_stop(void) {
-
 	TM1637_CLK_LOW();
 	_delay_us(TM1637_DELAY_US);
 
