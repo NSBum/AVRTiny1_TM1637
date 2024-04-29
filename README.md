@@ -42,6 +42,10 @@ int main(void)
 }
 ```
 
+## References
+
+- [TM1637 datasheet](https://www.makerguides.com/wp-content/uploads/2019/08/TM1637-Datasheet.pdf) - this goes into the communication protocol and command set in detail. The datasheet is poorly written, but is comprehensible for the most part. Sort of.
+
 
 ## Acknowledgements
 
