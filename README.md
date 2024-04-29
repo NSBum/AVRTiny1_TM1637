@@ -1,6 +1,6 @@
 # AVRTiny1_TM1637
 
-This is a library that allows embedded developers working with the tinyAVR(R) 1-series MCUs to interface these devices to seven-segment LED displays. These devices are commonly found on AliExpress and similar sites as 4 digit modules, though variants are also seen. 
+This is a library that allows embedded developers working with the tinyAVR® 1-series MCUs to interface these devices to seven-segment LED displays. These devices are commonly found on AliExpress and similar sites as 4 digit modules, though variants are also seen. 
 
 This code is tested with the ATtiny 1616 but other devices in this series should work fine also.
 
@@ -45,7 +45,7 @@ int main(void)
 
 ## Acknowledgements
 
-Original copy copyright: Copyright (c) 2017, Łukasz Marcin Podkalicki <lpodkalicki@gmail.com>. This codebase carried the BSD 2-Clause license which is included here. [Github](https://github.com/lpodkalicki/attiny-tm1637-library)
+Original copy copyright: Copyright © 2017, Łukasz Marcin Podkalicki <lpodkalicki@gmail.com>. This codebase carried the BSD 2-Clause license which is included here. [Github](https://github.com/lpodkalicki/attiny-tm1637-library)
 
 The code was forked at updated for the Codevision AVR compiler by Pouria Amiri - [Github](https://github.com/pouria-workshop/tm1637-library/tree/master). 
 
