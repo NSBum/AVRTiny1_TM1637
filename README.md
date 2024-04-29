@@ -26,11 +26,15 @@ An example application is included. A simplified example follows:
 
 int main(void)
 {
-    ccp_write_io((void *)&(CLKCTRL.MCLKCTRLB), 0x00);           // disable system clock prescaler
-    TM1637_init(1, 5, 4);										// initialize display interface
-    TM1637_clear();                                             // clear screen
+	/* Disable system clock prescaler */
+    ccp_write_io((void *)&(CLKCTRL.MCLKCTRLB), 0x00);
+
+    /* Initialize display interface and clear screen */
+    TM1637_init(1, 5, 4);
+    TM1637_clear();
 	
-    TM1637_display_number_decimal(7599, false, 1);              // display 75.99
+	/* Display 75.99 on-screen */
+    TM1637_display_number_decimal(7599, false, 1);
 
     while (1) {
 
