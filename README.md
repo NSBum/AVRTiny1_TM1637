@@ -20,10 +20,8 @@ An example application is included. A simplified example follows:
 ```c
 #define F_CPU 20000000UL
 
-#include <util/delay.h>
 #include <avr/io.h>
 #include <avr/cpufunc.h> 
-#include <stdint.h>
 #include "TM1637_TINY1_SMALL.h"
 
 int main(void)
