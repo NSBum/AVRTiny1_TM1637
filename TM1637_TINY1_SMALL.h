@@ -94,7 +94,7 @@
 // TM1637 commands
 #define	TM1637_CMD_SET_DATA		 	0x40
 #define	TM1637_CMD_SET_ADDR			0xC0
-#define	TM1637_CMD_SET_DSIPLAY		0x80
+#define	TM1637_CMD_SET_DISPLAY		0x80
 
 // TM1637 data settings (use bitwise OR to construct complete command)
 #define	TM1637_SET_DATA_WRITE		0x00 // write data to the display register

@@ -141,7 +141,7 @@ void TM1637_send_config(const uint8_t enable, const uint8_t brightness) {
 	_config = (enable ? TM1637_SET_DISPLAY_ON : TM1637_SET_DISPLAY_OFF) |
 		(brightness > TM1637_BRIGHTNESS_MAX ? TM1637_BRIGHTNESS_MAX : brightness);
 
-	TM1637_send_command(TM1637_CMD_SET_DSIPLAY | _config);
+	TM1637_send_command(TM1637_CMD_SET_DISPLAY | _config);
 }
 
 void TM1637_send_command(const uint8_t value) {
