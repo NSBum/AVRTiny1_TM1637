@@ -4,6 +4,8 @@ This is a library that allows embedded developers working with the tinyAVR® 1-s
 
 This code is tested with the ATtiny 1616 but other devices in this series should work fine also.
 
+![](display.webp)
+
 ## Usage
 
 You will need to import the library files: `TM1637_TINY1_SMALL.h` and `TM1637_TINY1_SMALL.c` and link them. Modify the following preprocessor definitions in the header file:
