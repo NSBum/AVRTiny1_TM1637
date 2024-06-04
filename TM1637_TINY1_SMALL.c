@@ -49,12 +49,15 @@ static inline void TM1637_DIO_INPUT() {
 	TM1637_DIO_PORT.DIRCLR = TM1637_DIO_MASK;
 }
 
+// Note that we have to use conventional register access
+// for the clock manipulation to work. Possibly related to timing issues
+
 static inline void TM1637_CLK_HIGH() {
-	TM1637_CLK_PORT.OUTSET = TM1637_CLK_MASK;
+	TM1637_CLK_PORT.OUT |= TM1637_CLK_MASK;
 }
 
 static inline void TM1637_CLK_LOW() {
-	TM1637_CLK_PORT.OUTCLR = TM1637_CLK_MASK;
+	TM1637_CLK_PORT.OUT &= ~TM1637_CLK_MASK;
 }
 
 static void TM1637_send_config(const uint8_t enable, const uint8_t brightness);
