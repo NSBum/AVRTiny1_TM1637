@@ -22,47 +22,29 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <avr/io.h>
+#include "config.h"
+
+#ifndef TM1637_CLK_PORT
+#error "TM1637_CLK_PORT must be defined in config.h, e.g. (PORTA)"
+#endif
+
+#ifndef TM1637_DIO_PORT
+#error "TM1637_DIO_PORT must be defined in config.h, e.g. (PORTA)"
+#endif
+
+#ifndef TM1637_DIO_MASK
+#error "TM1637_DIO_MASK must be defined in config.h - It will be something like (PIN6_bm)"
+#endif
+
+#ifndef TM1637_CLK_MASK
+#error "TM1637_CLK_MASK must be fined in config.h - It will be something like (PINT7_bm)"
+#endif
 
 /**
  * @defgroup TM1637_macros TM1637 Display Macros
  * @brief Preprocessor macros for the TM1637 display module.
  * @{
  */
-
-/**
- * @brief Bit mask for the AVR pin used to interface with the DIO pin of the TM1637 display.
- *
- * This defines the bit mask for the MCU pin that interfaces with the TM1637 clock pin.
- * It is used to manipulate the digital I/O line in the TM1637 protocol. If the PA6 pin were used for this purpose
- * for example, then this would be set to PIN6_bm
- */ 
-#define	TM1637_DIO_MASK			PIN6_bm		// DIO PIN bit mask
-
-/**
- * @ brief Bit mask for the AVR pin used to interface with the CLK pin of the TM1637 display.
- * 
- * This defines the bit mask for the MCU pin that interfaces with the TM1637 clock pin.
- * It is used to manipulate the clock in the TM1637 protocol. If the PA7 pin were used for this purpose
- * for example, then this would be set to PIN7_bm
- */
-#define	TM1637_CLK_MASK			PIN7_bm		// CLK PIN bit mask
-
-/**
- * @brief Port for the AVR pin that interfaces with the TM1637 DIO line
- * 
- * This defines the port on which the pin connected to the TM1637 DIO line resides. For example,
- * if PA6 on the MCU were used for this purpose, then should be defined as (PORTA).
- */
-#define TM1637_DIO_PORT			(PORTA)		// DIO PORT
-
-/**
- * @brief Port for the AVR pin that interfaces with the TM1637 CLI line
- * 
- * This defines the port on which the pin connected to the TM1637 clock line resides. For example,
- * if PA7 on the MCU were used for this purpose, then should be defined as (PORTA).
- */ 
-#define TM1637_CLK_PORT			(PORTA)		// CLK PORT
-
 
 /**
  * @brief Delay in microseconds in the TM1637 protocol
